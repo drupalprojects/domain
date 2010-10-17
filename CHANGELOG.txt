@@ -1,5 +1,10 @@
 // $Id$
 
+ 16-OCT-2010
+
+-- Proper validation check for a (.) in domain names.
+
+
 28-SEP-2010
 
 -- #912990 by bleen18. Only set form action when one is present.
