@@ -1,9 +1,12 @@
 // $Id$
 
- 16-OCT-2010
+31-OCT-2010
+
+-- #934860 by xjm. Remove reference to old prefixing docs.
+
+16-OCT-2010
 
 -- Proper validation check for a (.) in domain names.
-
 
 28-SEP-2010
 
