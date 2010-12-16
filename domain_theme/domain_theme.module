@@ -39,12 +39,17 @@ function domain_theme_menu($may_cache) {
       'callback' => 'domain_theme_reset',
       'callback arguments' => array(arg(4))
     );
-    // Assign the theme selected, based on the active domain.
-    global $_domain, $custom_theme;
-    $default_theme = variable_get('theme_default', 'garland');
-    $theme = domain_theme_lookup($_domain['domain_id']);
-    // The above returns -1 on failure.
-    if ($theme != -1) {
+  }
+  // Assign the theme selected, based on the active domain.
+  global $_domain, $custom_theme;
+  $default_theme = variable_get('theme_default', 'garland');
+  $theme = domain_theme_lookup($_domain['domain_id']);
+  // The above returns -1 on failure.
+  if ($theme != -1) {
+    if (arg(0) == 'admin') {
+      $custom_theme = variable_get('admin_theme', '0');
+    }
+    else {
       $custom_theme = $theme['theme'];
     }
   }
