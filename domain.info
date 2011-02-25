@@ -1,4 +1,3 @@
-;  $Id$
 name = Domain Access
 description = A subdomain-based access control system
 package = Domain Access
