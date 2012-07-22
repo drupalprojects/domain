@@ -1608,7 +1608,7 @@ function domain_get_node_domains($nodes, $reset = FALSE) {
   foreach ($result as $data) {
     if ($data->realm == 'domain_id') {
       // Transform the 0 to -1, since we use -1 in forms.
-      ($data->gid == 0) ? $gid = -1 : $gid = $data->gid; 
+      ($data->gid == 0) ? $gid = -1 : $gid = $data->gid;
       $records[$data->nid]['domain_id'][$gid] = $gid;
     }
     elseif ($data->realm == 'domain_site') {
@@ -1956,7 +1956,7 @@ function domain_form_alter(&$form, &$form_state, $form_id) {
   $_domain = domain_get_domain();
 
   // By default, the requesting domain is assigned.
-  $default = array($_domain['domain_id']);
+  $default = array($_domain['domain_id'] == 0 ? -1 : $_domain['domain_id']);
   // How is core content handled for this site?
   // In D7, type handling is strict, so make this value 0 or 1.
   // @TODO: clean up DOMAIN_INSTALL handling.
