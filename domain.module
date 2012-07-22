@@ -1858,12 +1858,9 @@ function domain_form_alter(&$form, &$form_state, $form_id) {
     global $_domain, $user;
 
     // By default, the requesting domain is assigned.
-    $default = array($_domain['domain_id']);
+    $default = array($_domain['domain_id'] == 0 ? -1 : $_domain['domain_id']);
     // How is core content handled for this site?
     $behavior = variable_get('domain_behavior', DOMAIN_INSTALL_RULE);
-    if ($_domain['domain_id'] == 0) {
-      $default[] = -1;
-    }
 
     // Some options will be passed as hidden values, we need to run some checks on those.
     if (isset($form['#node']->nid)) {
