@@ -393,5 +393,5 @@ function domain_settings_reset($domain_id) {
   }
   // Write the update.
   $sql = "UPDATE {domain_conf} SET settings = %b WHERE domain_id = %d";
-  db_query($sql, serialize($settings), $form_state['values']['domain_id']);
+  db_query($sql, serialize($settings), $domain_id);
 }
