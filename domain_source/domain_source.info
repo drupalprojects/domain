@@ -6,4 +6,4 @@ core = 7.x
 files[] = domain_source.install
 files[] = domain_source.module
 files[] = domain_source.views.inc
-
+files[] = includes/domain_source_handler_filter_domain_id.inc
