@@ -482,8 +482,8 @@ function domain_user($op, &$edit, &$account, $category = NULL) {
           $add_roles = TRUE;
         }
         $account->domain_user = domain_get_user_domains($account, $add_roles, TRUE);
-        // By default, the requesting domain is assigned.
-        if (empty($account->domain_user)) {
+        // By default, the requesting domain is assigned on registration.
+        if (empty($account->uid)) {
           ($_domain['domain_id'] == 0) ? $default  = array(-1) : $default = array($_domain['domain_id'] => $_domain['domain_id']);
         }
         else {
