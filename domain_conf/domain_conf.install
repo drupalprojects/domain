@@ -13,7 +13,7 @@ function domain_conf_schema() {
     'description' => 'Stores custom settings for each domain.',
     'fields' => array(
       'domain_id' => array('type' => 'int', 'not null' => TRUE, 'default' => 0),
-      'settings' => array('type' => 'blob', 'not null' => FALSE)),
+      'settings' => array('type' => 'blob', 'size' => 'big', 'not null' => FALSE)),
     'primary key' => array('domain_id'),
     'foreign_keys' => array(
       'domain_id' => array('domain' => 'domain_id'),
@@ -89,4 +89,16 @@ function domain_conf_d7_variable_changes() {
     'site_offline_message' => 'maintenance_mode_message',
   );
   return array('removed' => $removed, 'renamed' => $renamed);
+}
+
+/**
+ * Increases the size of the {domain_conf}.settings to long blob.
+ */
+function domain_conf_update_7002(&$sandbox) {
+  $updated_field = array(
+    'type' => 'blob',
+    'size' => 'big',
+    'not null' => FALSE,
+  );
+  db_change_field('domain_conf', 'settings', 'settings', $updated_field);
 }
