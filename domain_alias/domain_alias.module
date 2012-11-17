@@ -263,23 +263,31 @@ function _domain_alias_placeholders_from_sql($subdomain) {
  * Returns all aliases for one domain record (domain_id).
  *
  * @param $domain_id
- * The domain_id taken from {domain}.
+ *   The domain_id taken from {domain}.
  * @param $reset
- * A boolean flag indicating whether to reset the static array or not.
+ *   A boolean flag indicating whether to reset the static array or not.
  * @return
- * An array of all aliases defined for given domain_id, indexed by alias_id
+ *   An array of all aliases defined for given domain_id, indexed by alias_id
  */
 function domain_alias_list($domain_id, $reset = FALSE) {
-  static $aliases = Array();
-  if (!isset($aliases[$domain_id]) || $reset) {
+  static $aliases = array();
+
+  if (empty($aliases) || $reset) {
     $aliases[$domain_id] = array();
-    // Query the db for aliases.
-    $result = db_query("SELECT alias_id, pattern, redirect FROM {domain_alias} WHERE domain_id = %d", $domain_id);
-    while ($data = db_fetch_array($result)) {
+    // Get all Domain Alias records from database.
+    $domain_aliases = db_query("SELECT alias_id, domain_id, pattern, redirect FROM {domain_alias}");
+    while ($data = db_fetch_array($domain_aliases)) {
       $data['pattern'] = _domain_alias_placeholders_from_sql($data['pattern']);
-      $aliases[$domain_id][$data['alias_id']] = $data;
+      $aliases[$data['domain_id']][$data['alias_id']] = $data;
     }
   }
+
+  // No results (aliases) for our domain, set as an empty array to prevent
+  // errors on functions calling domain_alias_list().
+  if (!isset($aliases[$domain_id])) {
+    $aliases[$domain_id] = array();
+  }
+
   return $aliases[$domain_id];
 }
 
